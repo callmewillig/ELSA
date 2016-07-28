@@ -43,6 +43,7 @@ def query_elsa(user, apikey, ip, query):
 
 def print_results(output):
     output = json.loads(output)
+    if output.get('results'):
         if 'groupby' in output:
             col_headers = "{:^35} {:<20}".format('Group', 'Value')
             print(col_headers)
