@@ -164,7 +164,7 @@ def create_html(user, apikey, ip):
     data = query1(user, apikey, ip)
     list = split_line(data.text)
     table_data = listinlist(list)
-    htmlcode = HTML.table(table_data)
+    htmlcode = table(table_data)
     f.write(htmlcode)
 
     message = """
@@ -181,7 +181,7 @@ def create_html(user, apikey, ip):
     data = query2(user, apikey, ip)
     list = split_line(data.text)
     table_data = listinlist(list)
-    htmlcode = HTML.table(table_data)
+    htmlcode = table(table_data)
     f.write(htmlcode)
     
     message = """
@@ -226,7 +226,7 @@ def create_html(user, apikey, ip):
     data = query3(user, apikey, ip)
     list = split_line(data.text)
     table_data = listinlist(list)
-    htmlcode = HTML.table(table_data)
+    htmlcode = table(table_data)
     f.write(htmlcode)
     
     message = """
