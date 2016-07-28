@@ -85,13 +85,13 @@ def start_query(user, apikey, ip):
     query_result = query_elsa(user, apikey, ip, rarExfil)
     print_results(query_result.text)
     print(" ############################################################################################################################################### ")
-    '''
+    
     rarExfil2 = "class=BRO_HTTP -method='GET' mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) -'ESS Update' -update.eset.com limit:9000"
     query_result = query_elsa(user, apikey, ip, rarExfil2)
     print_results(query_result.text)
     print(" ############################################################################################################################################### ")
 	
-    '''malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
+    malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
     query_result = query_elsa(user, apikey, ip, malProcSea)
     print_results(query_result.text)'''
     
