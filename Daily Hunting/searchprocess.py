@@ -15,8 +15,8 @@ from yattag import Doc
 
 
 def query_elsa(user, apikey, ip, query):
-	url = 'https://' + ip + '/elsa-query/API/query'
-	epoch = int(time.time())
+    url = 'https://' + ip + '/elsa-query/API/query'
+    epoch = int(time.time())
     hash_it = hashlib.sha512()
     hash_it.update(str(epoch) + apikey)
     header = {}
@@ -32,32 +32,32 @@ def query_elsa(user, apikey, ip, query):
     return results
 
 def start_query(user, apikey, ip):
-	rdptoInet = "class=BRO_RDP -(dstip>=10.0.0.0 dstip<=10.255.255.255) -(dstip>=172.16.0.0 dstip<=172.31.255.255) -(dstip>=192.168.0.0 dstip<=192.168.255.255) groupby:srcip"
-	rdptoInet_result = query_elsa(user, apikey, ip, rdptoInet)
-	
-	
-	malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
-	malProcSea_result = query_elsa(user, apikey, ip, malProcSea)
-	
-	
-	rdpFromInet = "	class=BRO_RDP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) groupby:srcip"
-	rdpFromInet_result = query_elsa(user, apikey, ip, rdpFromInet)
-	
-	
-	rarExfil = "class=BRO_FTP -(command='GET' OR command='RETR') mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) limit:9000"
-	rarExfil_result = query_elsa(user, apikey, ip, rarExfil)
-	
-	
-	rarExfil2 = "class=BRO_HTTP -method='GET' mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) -'ESS Update' -update.eset.com limit:9000"
-	rarExfil2_result = query_elsa(user, apikey, ip, rarExfil2)
-	
-	
-	webShell = "	class=BRO_HTTP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) limit:9000 BRO_HTTP.status_code=200 groupby:uri"
-	webShell_result = query_elsa(user, apikey, ip, webShell)
-	
-	
-	
-	
+    rdptoInet = "class=BRO_RDP -(dstip>=10.0.0.0 dstip<=10.255.255.255) -(dstip>=172.16.0.0 dstip<=172.31.255.255) -(dstip>=192.168.0.0 dstip<=192.168.255.255) groupby:srcip"
+    rdptoInet_result = query_elsa(user, apikey, ip, rdptoInet)
+    
+    
+    malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
+    malProcSea_result = query_elsa(user, apikey, ip, malProcSea)
+    
+    
+    rdpFromInet = "class=BRO_RDP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) groupby:srcip"
+    rdpFromInet_result = query_elsa(user, apikey, ip, rdpFromInet)
+    
+    
+    rarExfil = "class=BRO_FTP -(command='GET' OR command='RETR') mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) limit:9000"
+    rarExfil_result = query_elsa(user, apikey, ip, rarExfil)
+    
+    
+    rarExfil2 = "class=BRO_HTTP -method='GET' mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) -'ESS Update' -update.eset.com limit:9000"
+    rarExfil2_result = query_elsa(user, apikey, ip, rarExfil2)
+    
+    
+    webShell = "class=BRO_HTTP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) limit:9000 BRO_HTTP.status_code=200 groupby:uri"
+    webShell_result = query_elsa(user, apikey, ip, webShell)
+    
+    
+    
+    
 if __name__ == "__main__":
     now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     yesterday = (datetime.datetime.utcnow() - datetime.timedelta(1)).strftime("%Y-%m-%d %H:%M:%S")
@@ -96,5 +96,5 @@ if __name__ == "__main__":
         elsa_user = options.elsa_user
         elsa_ip = options.elsa_ip
         elsa_apikey = options.elsa_apikey
-	
-	start_query(elsa_user, elsa_apikey, elsa_ip)
+    
+    start_query(elsa_user, elsa_apikey, elsa_ip)
