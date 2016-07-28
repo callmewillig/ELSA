@@ -22,7 +22,13 @@ import urllib
 
 
 # Global variables
-
+def read_conf():
+    config = ConfigParser()
+    config.read('./elsa_query.ini')
+    user = config.get('MAIN', 'user')
+    apikey = config.get('MAIN', 'apikey')
+    ip = config.get('MAIN', 'ip')
+    return user, apikey, ip
 
 def query_elsa(user, apikey, ip, query):
     url = 'https://' + ip + '/elsa-query/API/query'
