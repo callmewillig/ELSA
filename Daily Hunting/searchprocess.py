@@ -63,7 +63,27 @@ def print_results(output):
                 print(log)
     else:
         print('\nThe search did not return any records.')
-    
+
+def string_results(output):
+    temp_list = []
+    output = json.loads(output)
+    if output.get('results'):
+        if 'groupby' in output:
+            col_headers = "{:^35} {:<20}".format('Group', 'Value')
+            temp_list.append(col_headers)
+            for row in output['results'].values()[0]:
+                aligned_row = "{:>35} {:<20}".format(row['_groupby'], row['_count'])
+                temp_list.append(aligned_row)
+        else:
+            for msg in output['results']:
+                log = json.dumps(msg['msg'], ensure_ascii=True)
+                log = log.replace("\\\\\\\\", "\\")
+                temp_list.append(log)
+    return temp_list
+    else:
+        return('\nThe search did not return any records.')
+        
+        
 
 def query1(user, apikey, ip):
     query = "class=BRO_RDP -(dstip>=10.0.0.0 dstip<=10.255.255.255) -(dstip>=172.16.0.0 dstip<=172.31.255.255) -(dstip>=192.168.0.0 dstip<=192.168.255.255) groupby:srcip"
@@ -162,7 +182,7 @@ def create_html(user, apikey, ip):
       <p>(xxx.xxx.xxx. groupby:class)</p>"""
     f.write(message)
     data = query1(user, apikey, ip)
-    list = split_line(data.text)
+    list = string_results(data.text)
     table_data = listinlist(list)
     htmlcode = table(table_data)
     f.write(htmlcode)
@@ -179,7 +199,7 @@ def create_html(user, apikey, ip):
       <p>Did the user move to another account or another device?</p>"""
     f.write(message)
     data = query2(user, apikey, ip)
-    list = split_line(data.text)
+    list = string_results(data.text)
     table_data = listinlist(list)
     htmlcode = table(table_data)
     f.write(htmlcode)
@@ -224,7 +244,7 @@ def create_html(user, apikey, ip):
       <p>Examine the file to determine if it is a WebShell.</p>"""
     f.write(message)
     data = query3(user, apikey, ip)
-    list = split_line(data.text)
+    list = string_results(data.text)
     table_data = listinlist(list)
     htmlcode = table(table_data)
     f.write(htmlcode)
