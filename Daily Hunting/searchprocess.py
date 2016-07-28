@@ -41,10 +41,27 @@ def query_elsa(user, apikey, ip, query):
     results = s.send(data, verify=False)
     return results
 
+def print_results(output):
+    output = json.loads(output)
+        if 'groupby' in output:
+            col_headers = "{:^35} {:<20}".format('Group', 'Value')
+            print(col_headers)
+            for row in output['results'].values()[0]:
+                aligned_row = "{:>35} {:<20}".format(row['_groupby'], row['_count'])
+                print(aligned_row)
+        else:
+            for msg in output['results']:
+                log = json.dumps(msg['msg'], ensure_ascii=True)
+                log = log.replace("\\\\\\\\", "\\")
+                print(log)
+    else:
+        print('\nThe search did not return any records.')
+    
+    
 def start_query(user, apikey, ip):
     rdptoInet = "class=BRO_RDP -(dstip>=10.0.0.0 dstip<=10.255.255.255) -(dstip>=172.16.0.0 dstip<=172.31.255.255) -(dstip>=192.168.0.0 dstip<=192.168.255.255) groupby:srcip"
     rdptoInet_result = query_elsa(user, apikey, ip, rdptoInet)
-    print rdptoInet_result
+    print_results(rdptoInet_result.text)
     
     malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
     malProcSea_result = query_elsa(user, apikey, ip, malProcSea)
