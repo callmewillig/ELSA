@@ -79,9 +79,11 @@ def string_results(output):
                 log = json.dumps(msg['msg'], ensure_ascii=True)
                 log = log.replace("\\\\\\\\", "\\")
                 temp_list.append(log)
-    return temp_list
+        return temp_list
     else:
         return('\nThe search did not return any records.')
+        
+
         
         
 
