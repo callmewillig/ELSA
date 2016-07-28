@@ -112,7 +112,7 @@ def listinlist(list):
     i = 0
     new_list = []
     while i < len(list):
-        new_list.append(list[i:i+2])
+        new_list.append(list[i:i+1])
         i+=2
     return new_list   
     
