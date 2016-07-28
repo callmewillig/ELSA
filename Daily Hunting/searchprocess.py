@@ -9,7 +9,17 @@
         apikey =
 """
 
+from __future__ import print_function
 from yattag import Doc
+import optparse
+import time
+import hashlib
+from requests import Request, Session
+import json
+import datetime
+from configparser import ConfigParser
+import urllib
+
 
 # Global variables
 
@@ -34,7 +44,7 @@ def query_elsa(user, apikey, ip, query):
 def start_query(user, apikey, ip):
     rdptoInet = "class=BRO_RDP -(dstip>=10.0.0.0 dstip<=10.255.255.255) -(dstip>=172.16.0.0 dstip<=172.31.255.255) -(dstip>=192.168.0.0 dstip<=192.168.255.255) groupby:srcip"
     rdptoInet_result = query_elsa(user, apikey, ip, rdptoInet)
-    
+    print rdptoInet_result
     
     malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
     malProcSea_result = query_elsa(user, apikey, ip, malProcSea)
