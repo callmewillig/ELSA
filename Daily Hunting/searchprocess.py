@@ -19,7 +19,7 @@ import json
 import datetime
 from configparser import ConfigParser
 import urllib
-import HTML
+from HTML import table
 
 # Global variables
 def read_conf():
@@ -92,7 +92,7 @@ def listinlist(list):
     while i < len(list):
         new_list.append(list[i:i+2])
         i+=2
-    return new_list
+    return new_list   
     
     
 def create_html(user, apikey, ip):
@@ -166,7 +166,7 @@ def create_html(user, apikey, ip):
     table_data = listinlist(list)
     htmlcode = HTML.table(table_data)
     f.write(htmlcode)
-    
+
     message = """
     </div>
 
