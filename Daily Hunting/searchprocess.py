@@ -73,7 +73,7 @@ def start_query(user, apikey, ip):
 	
     webShell = "class=BRO_HTTP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) limit:9000 BRO_HTTP.status_code=200 groupby:uri"
     query_result = query_elsa(user, apikey, ip, webShell)
-    print_results(query_result.text.text)
+    print_results(query_result.text)
     print(" ############################################################################################################################################### ")
     
     rdpFromInet = "class=BRO_RDP -(srcip>=10.0.0.0 srcip<=10.255.255.255) -(srcip>=172.16.0.0 srcip<=172.31.255.255) -(srcip>=192.168.0.0 srcip<=192.168.255.255) groupby:srcip"
@@ -81,19 +81,19 @@ def start_query(user, apikey, ip):
     print_results(query_result.text)
     print(" ############################################################################################################################################### ")
     
-    rarExfil = "class=BRO_FTP -(command='GET' OR command='RETR') mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) limit:9000"
+    '''rarExfil = "class=BRO_FTP -(command='GET' OR command='RETR') mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) limit:9000"
     query_result = query_elsa(user, apikey, ip, rarExfil)
     print_results(query_result.text)
     print(" ############################################################################################################################################### ")
-    
+    '''
     rarExfil2 = "class=BRO_HTTP -method='GET' mime_type='application/x-rar' -(dstip>=10.0.0.0 AND dstip<=10.255.255.255) -(dstip>=172.16.0.0 AND dstip<=172.31.255.255) -(dstip>=192.168.0.0 AND dstip<=192.168.255.255) -'ESS Update' -update.eset.com limit:9000"
-   query_result = query_elsa(user, apikey, ip, rarExfil2)
+    query_result = query_elsa(user, apikey, ip, rarExfil2)
     print_results(query_result.text)
     print(" ############################################################################################################################################### ")
 	
-	malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
+    '''malProcSea = "class='WINDOWS_PROCESS' 'new process' groupby:image limit:9500 -'Program Files' -'system32' -SysWOW64 -WinSXS -'kix32.exe' -'Microsoft.NET' -'progra~2'"
     query_result = query_elsa(user, apikey, ip, malProcSea)
-    print_results(query_result.text)
+    print_results(query_result.text)'''
     
     
     
