@@ -116,7 +116,8 @@ def listinlist(list):
     list = split_line(list)
     new_list = []
     while i < len(list):
-        new_list.append(list[i:i+1])
+        new_list.append(list[i:i+2])
+        
         i+=2
     return new_list   
     
