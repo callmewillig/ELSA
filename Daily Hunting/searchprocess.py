@@ -110,7 +110,7 @@ def split_line(text):
         
 def listinlist(list):
     i = 2
-
+    list = split_line(list)
     new_list = []
     while i < len(list):
         new_list.append(list[i:i+1])
@@ -187,7 +187,7 @@ def create_html(user, apikey, ip):
     data = query1(user, apikey, ip)
     list = string_results(data.text)
     table_data = listinlist(list)
-    htmlcode = table(list, header_row=['Group', 'Value'])
+    htmlcode = table(table_data, header_row=['Group', 'Value'])
     f.write(htmlcode)
 
     message = """
