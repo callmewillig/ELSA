@@ -105,7 +105,7 @@ def query3(user, apikey, ip):
 
 
 def split_line(text):
-    words = text.split(" ")
+    words = text.split()
     return words
         
 def listinlist(list):
