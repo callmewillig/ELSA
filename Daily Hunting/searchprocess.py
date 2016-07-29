@@ -109,16 +109,11 @@ def split_line(text):
     return words
         
 def listinlist(list):
-    i = 0
-    list2 = []
-    while i < len(list):
-        list2.append(list[i])
-        i+=1
-    i = 0
-    
+    i = 2
+
     new_list = []
-    while i < len(list2):
-        new_list.append(list2[i:i+1])
+    while i < len(list):
+        new_list.append(list[i:i+1])
         i+=2
     return new_list   
     
@@ -192,7 +187,7 @@ def create_html(user, apikey, ip):
     data = query1(user, apikey, ip)
     list = string_results(data.text)
     table_data = listinlist(list)
-    htmlcode = table(table_data)
+    htmlcode = table(table_data, header_row=['Group', 'Value'])
     f.write(htmlcode)
 
     message = """
@@ -209,7 +204,7 @@ def create_html(user, apikey, ip):
     data = query2(user, apikey, ip)
     list = string_results(data.text)
     table_data = listinlist(list)
-    htmlcode = table(table_data)
+    htmlcode = table(table_data, header_row=['Group', 'Value'])
     f.write(htmlcode)
     
     message = """
@@ -254,7 +249,7 @@ def create_html(user, apikey, ip):
     data = query3(user, apikey, ip)
     list = string_results(data.text)
     table_data = listinlist(list)
-    htmlcode = table(table_data)
+    htmlcode = table(table_data, header_row=['Group', 'Value'])
     f.write(htmlcode)
     
     message = """
