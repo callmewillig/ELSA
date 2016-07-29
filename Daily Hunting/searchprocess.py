@@ -106,7 +106,7 @@ def query3(user, apikey, ip):
 
 def split_line(text):
     str1 = ''.join(str(e0 for e in text)
-    str1 = str1.replace('\n', ' ')
+    str1 = " ".join(str1.split("\n")
     
     words = str1.split()
     return words
