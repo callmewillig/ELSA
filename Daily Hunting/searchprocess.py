@@ -110,9 +110,15 @@ def split_line(text):
         
 def listinlist(list):
     i = 0
-    new_list = []
+    list2 = []
     while i < len(list):
-        new_list.append(list[i:i+1])
+        list2.append(list[i])
+        i+=1
+    i = 0
+    
+    new_list = []
+    while i < len(list2):
+        new_list.append(list2[i:i+1])
         i+=2
     return new_list   
     
